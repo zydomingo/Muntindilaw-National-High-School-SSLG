@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSLG Official Website</title>
+    <style>
+        /* --- 1. GENERAL DESIGN --- */
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 0; 
+            background: url('https://file.garden/aQ1RSq80InNm8Bm5/82302413_112900173776766_7229938772589150208_n.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: black;
+           
+        
+
+        /* --- 2. HEADER (LOGO LEFT, MENU RIGHT) --- */
+        header {
+            background-color: darkred;
+            height: 70px;
+            display: flex;
+            justify-content: space-between; /* Ito ang naghihiwalay sa logo at menu */
+            align-items: center;
+            padding: 0 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-section { 
+            display: flex;
+        align-items: center;
+        color: white;
+        gap: 10px; cursor: pointer;
+        }
+        .logo-section img { 
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: white; }
+
+        nav ul {
+        list-style: none; 
+        display: flex; 
+        gap: 20px; 
+        margin: 0;
+        padding: 0; }
+       
+        nav ul li a { 
+            color: white; 
+            text-decoration: none;
+            font-weight: bold; 
+            cursor: pointer; 
+            
+        }
+        nav ul li a:hover { 
+            color: #ffd700; 
+            
+        }
+
+        /* Dropdown Setup */
+        .dropdown { 
+            position: relative; 
+            
+        }
+        .dropdown-menu { 
+            display: none;
+            position: absolute; 
+            background: white; 
+            top: 30px; 
+            right: 0;
+            min-width: 160px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+        }
+        .dropdown-menu a
+        { color: #333; 
+        padding: 10px; 
+        display: block;
+        text-decoration: none;
+        border-bottom: 1px solid #eee; }
+        .show { 
+            display: block; 
+            
+        }
+
+        /* --- 3. PAGE CONTENT --- */
+        .page { display: none; 
+        padding: 50px 10%; 
+        min-height: 80vh; 
+        text-align: center; 
+        margin: auto
+        backdrop-filter: blur(10px);
+        }
+        .active { 
+            display: block; 
+            
+        }
+        .glass-container  { 
+            background: rgba(255, 255, 255, 0.9); 
+            padding: 30px;
+            border-radius: 30px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            
+            
+       }
+      img {
+           width: 890px;
+           height: 500px;
+       }
+        /* Officers Grid */
+        .card { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 15px; 
+            display: inline-block; 
+            width: 170px; 
+            margin: 10px; 
+            border-top: 5px solid #004488; 
+        }
+        .card img { 
+            width: 100px; 
+        height: 100px;
+        border-radius: 50%; 
+        object-fit: cover; 
+        margin-bottom: 10px; 
+            
+        }
+
+.event-container {
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.album-cover {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 15px;
+    flex-direction: align-items;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 4px solid white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.album-cover:hover {
+    transform: scale(1.05);
+    filter: brightness(80%);
+}
+
+.event-date {
+    background: darkred;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    margin-top: 10px;
+    display: inline-block;
+}
+         /* --- 4. FEEDBACK FORM (RED VALIDATION) --- */
+        .feedback-form {
+            max-width: 400px; 
+            margin: auto; 
+            text-align: left; 
+            
+        }
+        input, textarea { 
+            width: 100%; 
+            padding: 10px; 
+            margin: 5px 0; 
+            border: 1px solid #ccc; 
+            border-radius: 5px;
+            box-sizing: 
+            border-box;
+            }
+        .input-error { 
+            border: 2px solid red !important; 
+            background-color: #ffe6e6 !important; 
+            
+        }
+        .error-text { color: red; 
+        font-size: 12px; 
+        display: none;
+        margin-bottom: 10px;
+        }
+
+
+       /* Ito ang magpapapila sa kanila pakanan */
+.horizontal-line-wrapper {
+    display: flex;       /* Gagawa ng row */
+    overflow-x: auto;    /* Papayagan ang pag-scroll pakanan */
+    overflow-y: hidden;  /* Bawal ang scroll pababa */
+    gap: 20px;           /* Patlang sa pagitan ng mga album */
+    padding: 20px 0;
+    white-space: nowrap; /* Pinaka-importante: bawal bumaba ang content */
+}
+
+/* Siguraduhin na ang bawat album box ay may fixed width */
+.event-container {
+    flex: 0 0 250px;     /* Hindi liliit, hindi lalaki, laging 250px ang lapad */
+    display: inline-block; 
+    vertical-align: top;
+    text-align: center;
+}
+
+/* Optional: Itago ang pangit na scrollbar sa desktop */
+.horizontal-line-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+.horizontal-line-wrapper::-webkit-scrollbar-thumb {
+    background: #004488;
+    border-radius: 10px;
+}
+footer {
+ text-align: center;
+ padding: 1rem;
+ background-color: #333;
+ color: #fff;
+
+        }
+    </style>
+    </head>
+<body>
+
+    <!-- NAVIGATION -->
+    <header>
+        <div class="logo-section" onclick="changePage('home')">
+            <img src="https://image2url.com/r2/default/images/1773496607867-2566cc21-cab5-4ec7-b782-7ab7062f801b.jpg" alt="Logo">
+            <img src="https://image2url.com/r2/default/images/1773496904632-121fc256-6c2e-457e-a52b-9952e443a63d.jpg">
+            <span>Muntindilaw National High School</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a onclick="changePage('home')">Home</a></li>
+                <li class="dropdown">
+                    <a onclick="toggleAbout()">About ▼</a>
+                    <div id="aboutMenu" class="dropdown-menu">
+                        <a onclick="changePage('mission')">Mission & Vision</a>
+                        <a onclick="changePage('history')">History</a>
+                    </div>
+                </li>
+                <li><a onclick="changePage('officers')">Officers</a></li>
+                <li><a onclick="changePage('events')">Events</a></li>
+                <li><a onclick="changePage('feedback')">Feedback</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- PAGES -->
+    <div id="home" class="page active">
+        <div class="glass-container">
+            <h1>Welcome To Muntindilaw National High School SSLG</h1><p>Ang official portal ng SSLG.</p><img src="https://image2url.com/r2/default/images/1773497175854-64935e38-4b81-4721-a311-ff89a7e2c1dd.jpg"></div>
+   
+    </div>
+
+    <div id="mission" class="page">
+        <div class="glass-container"><h2>Mission & Vision</h2><p> <h3>Vision</h3>
+We dream of Filipinos
+who passionately love their country
+and whose values and competencies
+enable them to realize their full potential
+and contribute meaningfully to building the nation.
+
+As a learner-centered public institution,
+the Department of Education
+continuously improves itself
+to better serve its stakeholders.</p>
+
+<h3>Mission</h3>
+ <p>To protect and promote the right of every Filipino to quality, equitable, culture-based, and complete basic education where:
+
+Students learn in a child-friendly, gender-sensitive, safe, and motivating environment.
+Teachers facilitate learning and constantly nurture every learner.
+Administrators and staff, as stewards of the institution, ensure an enabling and supportive environment for effective learning to happen.
+Family, community, and other stakeholders are actively engaged and share responsibility for developing life-long learners.
+
+</p>
+ <h3>Core Values</h3>
+ <ul>
+<li>Maka-Diyos</li>
+<li>Maka-Tao</li>
+<li>Makalikasan</li>
+<li>Makabansa</li>
+ </p></div>
+    </div>
+
+    <div id="history" class="page">
+        <div class="glass-container"><h2>History</h2><p></p></div>
+    </div>
+    
+    <!-- Officers -->
+    <div id="officers" class="page ">
+        <div class="glass-container">
+            <h2>SSLG Officers</h2>
+            <h3>Adviser </h3>
+            <div class="card"><img src="https://file.garden/aQ1RSq80InNm8Bm5/b25d09b2-5e2a-4986-bdf1-9c27d63a9a0a.jpg"><p><h3>John Paul Datu</h3><strong>Teacher</strong></p></div>
+            <br>
+            <h3>Executive Board</h3>
+            <div class="card"><img src="https://file.garden/aQ1RSq80InNm8Bm5/09454c72-4b64-41a0-8b12-914fb2bbbf7e.jpg">
+            <h3>Rheya Shainaya C.</h3>
+            <p><strong>President</strong></p>
+            <p>Grade 12</p>
+            </div>
+            
+            <div class="card"><img src="https://file.garden/aQ1RSq80InNm8Bm5/vp.jpg">
+            <h3>Gervasio Ken Sravoj Nyel A.</h3>
+            <p><strong>Vice President</strong></p>
+            <p>Grade 11</p>
+            </div>
+            
+            <br>
+            <h3>Council Members</h3>
+            <div class="card"><img src="https://file.garden/aQ1RSq80InNm8Bm5/Millosa.jpg">
+            <h3>Millosa Alliah Kate P.</h3>
+            <p>Secretary</p>
+            <p>Grade 10</p>
+            </div>
+            <div class="card"><img src="https://file.garden/aQ1RSq80InNm8Bm5/35f20f4e-c60b-4676-8277-4da230012dd0.jpg">
+            <h3>Cortez Jazhiel B.</h3>
+            <p>Treasurer</p>
+            <p>Grade 10</p>
+            </div>
+            
+            <div class="card"><img src="https://file.garden/aQ1RSq80InNm8Bm5/8fab5995-bf4b-4abe-bb6c-a1a101237b05.jpg">
+            <h3>Garvacio Kyz Rajsen Velle A.</h3>
+            <p>Treasurer</p>
+            <p>Grade 10</p>
+            </div>
+            
+            <div class="card"><img src="https://file.garden/aQ1RSq80InNm8Bm5/jjj.jpg">
+            <h3>Horton Sevita Ellaine E.</h3>
+            <p>Treasurer</p>
+            <p>Grade 10></p>
+            </div>
+            
+          <div class="card"><img src="https://file.garden/aQ1RSq80InNm8Bm5/3ec672a0-b7b2-4547-945d-f4e772baed17.jpg">
+          <h3> Solomon Mary Rose B.</h3>
+          <p>Treasurer</p>
+          <p>Grade 10</p>
+          </div>
+          
+          <div class="card"><img src="https://file.garden/aQ1RSq80InNm8Bm5/g8.jpg">
+          <h3>Marugong Kathaleza</h3>
+          <p>Representative</p>
+          <p>Grade 8</p>
+          </div>
+          
+          <div class="card"><img src="https://file.garden/aQ1RSq80InNm8Bm5/dag.jpg">
+          <h3> Daclitan Princess Abigail F.</h3>
+          <p>Representative</p>
+          <p>Grade 9</p>
+          </div>
+        
+          <div class="card"><img src="https://file.garden/aQ1RSq80InNm8Bm5/mer.jpg">
+          <h3>Merhan Maria Elena S.</h3>
+          <p>Representative</p>
+          <p>Grade 10</p>
+          </div>
+          
+          <div class="card"><img src="https://file.garden/aQ1RSq80InNm8Bm5/fr.jpg">
+          <h3>Cabatcha, Fritz Gerald  </h3>
+          <p>Representative</p>
+          <p>Grade 11</p>
+          </div>
+          
+         <div class="card"><img src="https://file.garden/aQ1RSq80InNm8Bm5/pla.jpg">
+          <h3>Plaza, Jascy M.</h3>
+          <p>Representative</p>
+          <p>Grade 12</p>
+          </div>
+                  </div>
+    </div>
+          
+        </div>
+    </div>
+
+<div id="events" class="page">
+    <div class="glass-container">
+        <h2>Events Gallery</h2>
+        <p style="font-style: italic;">Click the image to view all photos</p>
+
+        <div class="event-container">
+            <h3>Earthquake Drill</h3>
+            <img src="https://file.garden/aQ1RSq80InNm8Bm5/546622129_1181312777351713_3001568193902149375_n.jpg" 
+                 class="album-cover" 
+                 onclick="openGallery('Earthquake Drill', [
+                    'https://file.garden/aQ1RSq80InNm8Bm5/544854103_1181312897351701_4319133098202076674_n.jpg',
+                    'https://file.garden/aQ1RSq80InNm8Bm5/546619617_1181312774018380_6740619984527043733_n.jpg',
+                    'https://file.garden/aQ1RSq80InNm8Bm5/yuss.jpg',
+                     'https://file.garden/aQ1RSq80InNm8Bm5/546622129_1181312777351713_3001568193902149375_n.jpg',
+                 'https://file.garden/aQ1RSq80InNm8Bm5/eart.jpg',
+                 
+                 ])">
+            <span class="event-date">July 10, 2024</span>
+        </div>
+
+        <div class="event-container">
+            <h3>Teachers' Day</h3>
+            <img src="https://file.garden/aQ1RSq80InNm8Bm5/558316681_1204630378353286_3512609857543434423_n.jpg" 
+                 class="album-cover" 
+                 onclick="openGallery('Teachers Day', [
+                    'https://file.garden/aQ1RSq80InNm8Bm5/558209081_1204634151686242_7539448497413779030_n.jpg',
+                    'https://file.garden/aQ1RSq80InNm8Bm5/558049858_1204634065019584_2807918040289982653_n.jpg',
+                    'https://file.garden/aQ1RSq80InNm8Bm5/558640156_1204633808352943_2552012521393647036_n.jpg',
+                    'https://file.garden/aQ1RSq80InNm8Bm5/558316681_1204630378353286_3512609857543434423_n.jpg',
+                    'https://file.garden/aQ1RSq80InNm8Bm5/558921465_1204630265019964_5406266329848643123_n.jpg'
+                 ])">
+            <span class="event-date">October 4, 2024</span>
+        </div>
+         <div class="event-container">
+            <h3>Teachers' Day Sports</h3>
+            <img src="https://file.garden/aQ1RSq80InNm8Bm5/play.jpg" 
+                 class="album-cover" 
+                 onclick="openGallery('Teachers Day', [
+                 'https://file.garden/aQ1RSq80InNm8Bm5/mp.jpg',
+                 'https://file.garden/aQ1RSq80InNm8Bm5/sp.jpg',
+                 'https://file.garden/aQ1RSq80InNm8Bm5/ps.jpg',
+                 ])">
+                  <span class="event-date">October 5, 2024</span>
+        <div class="event-container">
+            <h3>Brigada eskwela</h3>
+            <img src="https://file.garden/aQ1RSq80InNm8Bm5/483062415_1041446014671724_6147385690763955759_n.jpg" 
+                 class="album-cover" 
+                 onclick="openGallery('Brigada eskwela', [
+                    ''  ,
+                    'https://file.garden/aQ1RSq80InNm8Bm5/484268352_1041445941338398_4879277023175405674_n.jpg',
+                    'https://file.garden/aQ1RSq80InNm8Bm5/483062415_1041446014671724_6147385690763955759_n.jpg',
+                    '',
+                    '',
+                    
+                 ])">
+            <span class="event-date">October 5, 2024</span>
+        </div>
+        
+        </div>
+</div>
+  </div> </div> <div id="events" class="page">
+    </div> <div id="feedback" class="page">
+    <div class="glass-container">
+        <h2>Feedback Form</h2>
+        <form id="fForm" class="feedback-form">
+            <label>Name:</label>
+            <input type="text" id="uName" placeholder="Letters only">
+            <div id="nErr" class="error-text">⚠️ Letters only please.</div>
+
+            <label>Email:</label>
+            <input type="text" id="uEmail" placeholder="example@gmail.com">
+            <div id="eErr" class="error-text">⚠️ Valid @gmail.com required.</div>
+
+            <label>Message/Comment:</label>
+            <textarea id="uMsg" rows="4" placeholder="Write here..."></textarea>
+
+            <button type="submit" style="width:100%; padding:10px; background:#004488; color:white; border:none; cursor:pointer;">Submit</button>
+        </form>
+    </div>
+</div>
+    <!-- MODAL -->
+    <div id="gModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeGallery()">&times;</span>
+            <h2 id="gTitle">Gallery</h2>
+            <div class="gallery-grid" id="gGrid"></div>
+        </div>
+    </div>
+    <footer>
+<p>&copy; 2025 SSLG. All Rights Reserved.</p>
+</footer>
+
+<script>
+        function changePage(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            document.getElementById('aboutMenu').classList.remove('show');
+            window.scrollTo(0,0);
+        }
+        
+        function openGallery(title, images) {
+    const modal = document.getElementById('gModal');
+    const grid = document.getElementById('gGrid');
+    const gTitle = document.getElementById('gTitle');
+
+    gTitle.innerText = title;
+    grid.innerHTML = ''; // Linisin muna ang grid
+
+    images.forEach(src => {
+        let img = document.createElement('img');
+        img.src = src;
+        img.style.width = "100%";
+        img.style.maxWidth = "200px";
+        img.style.height = "150px";
+        img.style.objectFit = "cover";
+        img.style.borderRadius = "10px";
+        grid.appendChild(img);
+    });
+
+    modal.style.display = 'flex';
+}
+
+function closeGallery() {
+    document.getElementById('gModal').style.display = 'none';
+}
+
+// Para masara ang modal kapag clinick ang labas nito
+window.onclick = function(event) {
+    let modal = document.getElementById('gModal');
+    if (event.target == modal) {
+        closeGallery();
+    }
+}
+
+        function toggleAbout() {
+    document.getElementById("aboutMenu").classList.toggle("show");
+}
+        
+
+        function closeGallery() { document.getElementById('gModal').style.display = 'none'; }
+
+        document.getElementById('fForm').onsubmit = function(e) {
+            e.preventDefault();
+            let n = document.getElementById('uName'), e_m = document.getElementById('uEmail');
+            let nV = /^[A-Za-z\s]+$/.test(n.value), eV = e_m.value.toLowerCase().endsWith("@gmail.com");
+
+            n.classList.toggle('input-error', !nV);
+            document.getElementById('nErr').style.display = nV ? 'none' : 'block';
+            if (eV && nV){alert("Error"); this.reset();}
+            e_m.classList.toggle('input-error', !eV);
+            document.getElementById('eErr').style.display = eV ? 'none' : 'block';
+
+            if(nV && eV) { alert("Thank you for your Feedback!"); this.reset(); }
+        }
+    </script>
+</body>
+</html>
